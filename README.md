@@ -27,24 +27,18 @@ docker pull [ECR_REPOSITORY_URI]/pii_leak:latest
 ### Usage
 
 1. **Inject Canary Sequences**
-docker run -v $(pwd)/data:/app/data pii_leak inject \
---dataset data/input.jsonl \
+
+docker run -v $(pwd)/data:/app/data 709825985650.dkr.ecr.us-east-1.amazonaws.com/secludy/pii-leakage-detection:v1.0.1 inject \
+--dataset data/costco_emails.jsonl \
 --output data/injected.jsonl
 
-2. **Train Your Model**
-   - Use the injected dataset (`injected.jsonl`) with your LLM training pipeline
-   - Follow your organization's standard training procedures
-
-3. **Generate Test Outputs**
-   - Use your fine-tuned model to generate test outputs
-   - Save results in JSONL format with a 'content' field
-
-4. **Detect PII Leakage**
 
 
-docker run -v $(pwd)/data:/app/data pii_leak detect \
---dataset data/llm_generated_results.jsonl \
---output-dir data
+2. **Detect PII Leakage**
+
+docker run -v $(pwd)/result:/app/result -v $(pwd)/data:/app/data 709825985650.dkr.ecr.us-east-1.amazonaws.com/secludy/pii-leakage-detection:v1.0.1  detect \
+--dataset data/injected.jsonl \
+--output-dir result
 
 
 ## Input Requirements
