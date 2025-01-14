@@ -27,7 +27,7 @@ docker pull [ECR_REPOSITORY_URI]/pii_leak:latest
 ### Usage
 
 1. **Inject Canary Sequences**
-
+bash
 docker run -v $(pwd)/data:/app/data 709825985650.dkr.ecr.us-east-1.amazonaws.com/secludy/pii-leakage-detection:v1.0.1 inject \
 --dataset data/costco_emails.jsonl \
 --output data/injected.jsonl
@@ -35,7 +35,7 @@ docker run -v $(pwd)/data:/app/data 709825985650.dkr.ecr.us-east-1.amazonaws.com
 
 
 2. **Detect PII Leakage**
-
+bash
 docker run -v $(pwd)/result:/app/result -v $(pwd)/data:/app/data 709825985650.dkr.ecr.us-east-1.amazonaws.com/secludy/pii-leakage-detection:v1.0.1  detect \
 --dataset data/injected.jsonl \
 --output-dir result
