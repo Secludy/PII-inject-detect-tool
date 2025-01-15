@@ -12,9 +12,12 @@ This tool helps organizations:
 ## Quick Start
 
 ### Prerequisites
-- Docker installed
+- Docker and git installed
 - Access to AWS Marketplace
-- Local data directory for input/output files
+- clone this repo to your local machine
+```bash 
+git clone https://github.com/secludy/PII-inject-detect-tool.git
+```
 
 ### Installation
 
@@ -35,14 +38,8 @@ for i in $(echo $CONTAINER_IMAGES | sed "s/,/ /g"); do docker pull $i; done
 
 1. **Inject Canary Sequences**
 ```bash
-aws ecr get-login-password \
-    --region us-east-1 | docker login \
-    --username AWS \
-    --password-stdin 709825985650.dkr.ecr.us-east-1.amazonaws.com
-    
-CONTAINER_IMAGES="709825985650.dkr.ecr.us-east-1.amazonaws.com/secludy/pii-leakage-detection:v1.0.1"    
-
-for i in $(echo $CONTAINER_IMAGES | sed "s/,/ /g"); do docker pull $i; done
+docker run  -v $(pwd)/data:/app/data 709825985650.dkr.ecr.us-east-1.amazonaws.com/secludy/pii-leakage-detection:v1.0.1 inject --dat
+aset  data/costco_emails.jsonl  --output data/injected.jsonl
 ```
 
 
@@ -60,6 +57,7 @@ docker run -v $(pwd)/result:/app/result -v $(pwd)/data:/app/data 709825985650.dk
 - Place your dataset file in a local `data` directory
 - Input dataset must be in JSONL format with 'content' field containing model outputs
 - The container will mount your local `data` directory to `/app/data` inside the container
+
 
 ## Output Files
 
