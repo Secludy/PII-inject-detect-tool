@@ -19,26 +19,40 @@ This tool helps organizations:
 ### Installation
 
 Pull the container from AWS Marketplace: 
-bash
-aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin [ECR_REPOSITORY_URI]
-docker pull [ECR_REPOSITORY_URI]/pii_leak:latest
+```bash
+aws ecr get-login-password \
+    --region us-east-1 | docker login \
+    --username AWS \
+    --password-stdin 709825985650.dkr.ecr.us-east-1.amazonaws.com
+    
+CONTAINER_IMAGES="709825985650.dkr.ecr.us-east-1.amazonaws.com/secludy/pii-leakage-detection:v1.0.1"    
+
+for i in $(echo $CONTAINER_IMAGES | sed "s/,/ /g"); do docker pull $i; done
+```
 
 
 ### Usage
 
 1. **Inject Canary Sequences**
-bash
-docker run -v $(pwd)/data:/app/data 709825985650.dkr.ecr.us-east-1.amazonaws.com/secludy/pii-leakage-detection:v1.0.1 inject \
---dataset data/costco_emails.jsonl \
---output data/injected.jsonl
+```bash
+aws ecr get-login-password \
+    --region us-east-1 | docker login \
+    --username AWS \
+    --password-stdin 709825985650.dkr.ecr.us-east-1.amazonaws.com
+    
+CONTAINER_IMAGES="709825985650.dkr.ecr.us-east-1.amazonaws.com/secludy/pii-leakage-detection:v1.0.1"    
+
+for i in $(echo $CONTAINER_IMAGES | sed "s/,/ /g"); do docker pull $i; done
+```
 
 
 
 2. **Detect PII Leakage**
-bash
+```bash
 docker run -v $(pwd)/result:/app/result -v $(pwd)/data:/app/data 709825985650.dkr.ecr.us-east-1.amazonaws.com/secludy/pii-leakage-detection:v1.0.1  detect \
 --dataset data/injected.jsonl \
 --output-dir result
+```
 
 
 ## Input Requirements
