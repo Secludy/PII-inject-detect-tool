@@ -66,7 +66,9 @@ The tool generates the following files in your data directory:
 - `leakage_results_ahocorasick.json`: Detailed detection results
 - `per_category_stats_ahocorasick.json`: Statistical analysis by PII category
 - `leakage_report.pdf`: Executive summary with visualizations
-
+screenshots of example leakage report:
+![alt text](asset/image-1.png)
+![alt text](asset/image.png)
 
 ## Support
 
