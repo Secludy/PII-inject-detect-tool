@@ -13,7 +13,8 @@ This tool helps organizations:
 
 ### Prerequisites
 - Docker and git installed
-- Access to AWS Marketplace
+- AWS account
+-  Subscribe to AWS Marketplace [container-based products](https://aws.amazon.com/marketplace/pp/prodview-2gtwbbzppxkp4)
 - clone this repo to your local machine
 ```bash 
 git clone https://github.com/secludy/PII-inject-detect-tool.git
